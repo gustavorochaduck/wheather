@@ -11,17 +11,11 @@ fetch('https://api.open-meteo.com/v1/dwd-icon?latitude=50.0565&longitude=8.5925&
         var hourlyShowers = data.hourly.showers;
         var hourlySnowfall = data.hourly.snowfall;
 
-        // Imprima os dados no console
-        console.log('hourlyTemperature:', hourlyTemperature);
-        console.log('hourlyRain:', hourlyRain);
-        console.log('hourlyShowers:', hourlyShowers);
-        console.log('hourlySnowfall:', hourlySnowfall);
-
         // Configuração do gráfico
         var weatherChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: hourlyTemperature.map(entry => new Date(entry.timestamp_local).toLocaleTimeString()),
+                labels: hourlyTemperature.map(entry => entry.timestamp_local),
                 datasets: [{
                     label: 'Temperatura (°C)',
                     data: hourlyTemperature.map(entry => entry.value),
@@ -49,16 +43,6 @@ fetch('https://api.open-meteo.com/v1/dwd-icon?latitude=50.0565&longitude=8.5925&
                 }]
             },
             options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Previsão Meteorológica'
-                    },
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
                 scales: {
                     y: {
                         beginAtZero: true
